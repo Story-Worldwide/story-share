@@ -1,3 +1,4 @@
+/*global jQuery */
 (function ($, window, document, undefined) {
 
 
@@ -5,14 +6,17 @@
         defaults = {
 
             windowWidth: 500,
-            windowHeight: 500,
+            windowHeight: 300,
             socialProviders: {
                 facebook_simple: {
                     urlBase: 'https://www.facebook.com/sharer/sharer.php?u={url}'
 
                 },
                 facebook_complex: {
-                    urlBase: 'https://www.facebook.com/dialog/feed?app_id={app_id}&caption={caption}&description={description}&display={display}&e2e="{e2e}"&link={link}&locale={locale}&message={message}&name={name}&next={next}&domain={domain}&origin={origin}&relation={relation}&frame={frame}&result={result}&picture={picture}&sdk=joey'
+                    urlBase: 'https://www.facebook.com/dialog/feed?app_id={app_id}&redirect_uri={redirect_uri}&picture={picture}&caption={caption}&description={description}&title={title}&name={name}&properties={properties}&actions={actions}&ref={ref}&display=popup',
+                    overrides: {
+                        redirect_uri: window.location.href + '#story_close_window'
+                    }
                 },
                 twitter: {
                     urlBase: 'https://twitter.com/intent/tweet?url={url}&text={text}&hashtags={hashtags}'
@@ -67,7 +71,7 @@
 
 
 
-        linkHandler: function (e) {
+        linkHandler: function () {
 
 
             var px = Math.floor(((screen.availWidth || 1024) - this.options.windowWidth) / 2),
@@ -97,9 +101,14 @@
                 this.linkHandler();
         },
 
+        closeWindowIfHashExists: function(){
+            if (window.location.hash.indexOf('#story_close_window') !== -1) {
+                window.close();
+            }
+        },
         init: function () {
 
-
+            this.closeWindowIfHashExists();
             $(this.element).on('click', this.shareHandler);
 
         },
@@ -145,9 +154,9 @@
                 overrides = socialProvider.overrides || {};
 
 
-            tokens.forEach(function (element, index, array) {
+            tokens.forEach(function (element) {
 
-                override = null;
+                var override = null;
                 element = element.replace('{', '').replace('}', '');
 
                 if (element in overrides) {
@@ -181,5 +190,4 @@
     };
 
 })(jQuery, window, document);
-
 
