@@ -1,4 +1,4 @@
-Story Share jQuery Plugin Beta
+Story Share jQuery Plugin
 ==================================================
 
 
@@ -49,7 +49,7 @@ Sharing Services Included
 
 Facebook (Simple)
 ---
-Facebook's most basic sharing feature provides the ability to share only a URL. Facebook will then use the [opengraph](http://ogp.me/) protocol. See this [article from David Walsh](http://davidwalsh.name/facebook-meta-tags)  on more information on the using the open graph protocol. This is different from the other included services as the basic sharing feature does not provide the ability to customize share text, so there is a limited amount of required data attributes on the anchor tag:
+Facebook's most basic sharing feature provides the ability to share only a URL. Facebook will then use the [opengraph](http://ogp.me/) protocol. See this [article from David Walsh](http://davidwalsh.name/facebook-meta-tags)  on more information on the using the open graph protocol. This is different from the other included services as the basic sharing feature does not provide the ability to customize share text, so there is a limited amount of required data attributes on the anchor tag.
 
 * `data-type` => `facebook-simple` *always*  
 * `data-url` => `http://example.com`
@@ -60,19 +60,51 @@ Example:
 <a href="#" class="share" data-type="facebook-simple" data-url="http://foobar.com">Click to Share on Facebook</a>
 ```
 
+Facebook (Complex)
+---
+Facebook's `dialog/feed` endpoint gives us a more custom share experience. The only caveat is that a Facebook Application ID needs to be provided (typically it will be done in the instantiation of the plugin, see below for an example).
+
+For any of these data elements or for more information refer to [Facebook's documentation](https://developers.facebook.com/docs/sharing/reference/feed-dialog/v2.3) for this API endpoint.
+
+* `data-type` => `facebook-complex` *always*  
+* `data-redirect_uri` => You should only change this if you need to. Because the `dialog/feed` endpoint requires a redirect that will send the user to a specific page , we are simply redirecting to the same page with a hashbag added to the end of the URL, which this plugin has a handler to close the window when redirecting.
+* `data-picture` => `http://example.com/image.jpg`
+* `data-caption` => `Ready for Isomorphic Javascript?`
+* `data-link` => `http://example.com/isomorphic-javascript`* `data-source` => From Facebook's documentation The URL of a media file (either SWF or MP3) attached to this post. If SWF, you must also specify picture to provide a thumbnail for the video.* `data-name` => From Facebook's documentation: The name of the link attachment.* `data-description` => `The latest article from my blog that discusses isomorphic javascript.`* `data-properties` => From Facebook's documentation: A JSON object of key/value pairs which will appear in the stream attachment beneath the description, with each property on its own line. Keys must be strings, and values can be either strings or JSON objects with the keys text and href.* `data-actions` => From Facebook's documentation: A JSON array containing a single object describing the action link which will appear next to the 'Comment' and 'Like' link under posts. The contained object must have the keys name and link.* `data-ref` => From Facebook's documentation: This argument is a comma-separated list, consisting of at most 5 distinct items, each of length at least 1 and at most 15 characters drawn from the set '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_'. Each category is used in Facebook Insights to help you measure the performance of different types of post
+
+Example:
+
+In the header:
+
+```
+jQuery(document).ready(function () {
+  $('a.share').storyShare({
+    fbAppId: 123456789012345,
+  });
+});
+```
+
+In the body:
+
+
+```
+ <a class="share" data-name="Isomorphic Javascript" data-link="http://example.com/isomorphic-javascript" data-description="The latest article from my blog that discusses isomorphic javascript." data-type="facebook-complex" data-picture="http://example.com/image.jpg" data-caption="Ready for Isomorphic JavaScript?" href="#">Share on Facebook</a>
+```
+
+
 Twitter
 ---
 Sharing with twitter is more straight forward and here are the data attributes:
 
 * `data-type` => `twitter` *always*  
 * `data-url` => `http://example.com`  
-* `data-text` => `somorphic JavaScript, is this our future?`
+* `data-text` => `Isomorphic JavaScript, is this our future?`
 * `data-hashtags` => `js,isomorphism` this is optional and it would be comma delimited
 
 Example:
 
 ```
-<a href="#" class="share" data-type="twitter" data-url="http://foobar.com" data-text="The latest and greatest!" data-hashtags="summer2015,nomorecold">Click to Share on Twitter</a>
+<a href="#" class="share" data-type="twitter" data-url="http://example.com" data-text="Isomorphic JavaScript, is this our future?" data-hashtags="js,isomorphism">Click to Share on Twitter</a>
 ```
 
 Google Plus
@@ -85,7 +117,7 @@ Like Facebook, Google uses opengraph tags for sharing so there is a limited amou
 Example:
 
 ```
-<a href="#" class="share" data-type="google-plus" data-url="http://foobar.com">Click to Share on Google Plus</a>
+<a href="#" class="share" data-type="google-plus" data-url="http://example.com">Click to Share on Google Plus</a>
 ```
 
 LinkedIn
@@ -101,7 +133,7 @@ Sharing with Twitter is more straight forward and here are the data attributes:
 Example:
 
 ```
-<a href="#" class="share" data-type="linkedin" data-url="http://foobar.com" data-source="My Shiny Blog" data-title="Isomorphic JavaScript, is this our future?" data-summary="The latest article from my blog that discusses isomorphic javascript">Click to Share on LinkedIn</a>
+<a href="#" class="share" data-type="linkedin" data-url="http://example" data-source="My Shiny Blog" data-title="Isomorphic JavaScript, is this our future?" data-summary="The latest article from my blog that discusses isomorphic javascript">Click to Share on LinkedIn</a>
 ```
 
 Pinterest
