@@ -13,7 +13,7 @@
 
                 },
                 facebook_complex: {
-                    urlBase: 'https://www.facebook.com/dialog/feed?app_id={app_id}&redirect_uri={redirect_uri}&picture={picture}&caption={caption}&description={description}&title={title}&name={name}&properties={properties}&actions={actions}&ref={ref}&display=popup',
+                    urlBase: 'https://www.facebook.com/dialog/feed?app_id={app_id}&redirect_uri={redirect_uri}&link={link}&picture={picture}&caption={caption}&description={description}&title={title}&name={name}&properties={properties}&actions={actions}&ref={ref}&display=popup',
                     overrides: {
                         redirect_uri: window.location.href + '#story_close_window'
                     }
