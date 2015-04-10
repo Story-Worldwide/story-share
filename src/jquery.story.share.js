@@ -1,5 +1,14 @@
 /*global jQuery */
-(function($, window, document, undefined) {
+
+/*!
+ * Sharing plugin for Story Worldwide
+ * Original author: @matgargano
+ * Licensed under the MIT license
+ * Version 0.0.2
+ */
+
+
+;(function($, window, document, undefined) {
 
 
     var pluginName = "storyShare",
