@@ -1,5 +1,5 @@
 /*global jQuery */
-(function ($, window, document, undefined) {
+(function($, window, document, undefined) {
 
 
     var pluginName = "storyShare",
@@ -71,7 +71,7 @@
 
 
 
-        linkHandler: function () {
+        linkHandler: function() {
 
 
             var px = Math.floor(((screen.availWidth || 1024) - this.options.windowWidth) / 2),
@@ -95,24 +95,24 @@
 
             return !!popup;
         },
-        
 
-        shareHandler: function () {
-                this.linkHandler();
+
+        shareHandler: function() {
+            this.linkHandler();
         },
 
-        closeWindowIfHashExists: function(){
+        closeWindowIfHashExists: function() {
             if (window.location.hash.indexOf('#story_close_window') !== -1) {
                 window.close();
             }
         },
-        init: function () {
+        init: function() {
 
             this.closeWindowIfHashExists();
             $(this.element).on('click', this.shareHandler);
 
         },
-        removeURLParameter: function (url, parameter) {
+        removeURLParameter: function(url, parameter) {
             var urlparts = url.split('?');
             if (urlparts.length >= 2) {
 
@@ -132,7 +132,7 @@
             }
         },
 
-        generateSocialUrl: function () {
+        generateSocialUrl: function() {
 
 
             var $el = $(this.element),
@@ -154,7 +154,7 @@
                 overrides = socialProvider.overrides || {};
 
 
-            tokens.forEach(function (element) {
+            tokens.forEach(function(element) {
 
                 var override = null;
                 element = element.replace('{', '').replace('}', '');
@@ -180,14 +180,13 @@
     };
 
 
-    $.fn[pluginName] = function (options) {
-        return this.each(function () {
+    $.fn[pluginName] = function(options) {
+        return this.each(function() {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                new Plugin(this, options));
+                    new Plugin(this, options));
             }
         });
     };
 
 })(jQuery, window, document);
-
