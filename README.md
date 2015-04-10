@@ -2,6 +2,8 @@ Story Share jQuery Plugin
 ==================================================
 
 
+`Version 0.0.2`
+
 This jQuery plugin allows you to share pages on `twitter`, `facebook`, `google plus`, `linkedin` and `pinterest` custom share text for Facebook is not yet supported.
 
 Documentation
@@ -70,7 +72,13 @@ For any of these data elements or for more information refer to [Facebook's docu
 * `data-redirect_uri` => You should only change this if you need to. Because the `dialog/feed` endpoint requires a redirect that will send the user to a specific page , we are simply redirecting to the same page with a hashbag added to the end of the URL, which this plugin has a handler to close the window when redirecting.
 * `data-picture` => `http://example.com/image.jpg`
 * `data-caption` => `Ready for Isomorphic Javascript?`
-* `data-link` => `http://example.com/isomorphic-javascript`* `data-source` => From Facebook's documentation The URL of a media file (either SWF or MP3) attached to this post. If SWF, you must also specify picture to provide a thumbnail for the video.* `data-name` => From Facebook's documentation: The name of the link attachment.* `data-description` => `The latest article from my blog that discusses isomorphic javascript.`* `data-properties` => From Facebook's documentation: A JSON object of key/value pairs which will appear in the stream attachment beneath the description, with each property on its own line. Keys must be strings, and values can be either strings or JSON objects with the keys text and href.* `data-actions` => From Facebook's documentation: A JSON array containing a single object describing the action link which will appear next to the 'Comment' and 'Like' link under posts. The contained object must have the keys name and link.* `data-ref` => From Facebook's documentation: This argument is a comma-separated list, consisting of at most 5 distinct items, each of length at least 1 and at most 15 characters drawn from the set '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_'. Each category is used in Facebook Insights to help you measure the performance of different types of post
+* `data-link` => `http://example.com/isomorphic-javascript`
+* `data-source` => From Facebook's documentation The URL of a media file (either SWF or MP3) attached to this post. If SWF, you must also specify picture to provide a thumbnail for the video.
+* `data-name` => From Facebook's documentation: The name of the link attachment.
+* `data-description` => `The latest article from my blog that discusses isomorphic javascript.`
+* `data-properties` => From Facebook's documentation: A JSON object of key/value pairs which will appear in the stream attachment beneath the description, with each property on its own line. Keys must be strings, and values can be either strings or JSON objects with the keys text and href.
+* `data-actions` => From Facebook's documentation: A JSON array containing a single object describing the action link which will appear next to the 'Comment' and 'Like' link under posts. The contained object must have the keys name and link.
+* `data-ref` => From Facebook's documentation: This argument is a comma-separated list, consisting of at most 5 distinct items, each of length at least 1 and at most 15 characters drawn from the set '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_'. Each category is used in Facebook Insights to help you measure the performance of different types of post
 
 Example:
 
