@@ -1,0 +1,14 @@
+{
+  "name": "jquery.story.share",
+  "version": "0.1",
+  "main": [
+    "src/jquery.story.share.js"
+  ],
+  "dependencies": {
+    "jquery": ">=1.2"
+  },
+  "ignore": [
+    "*.json",
+    "*.md",
+  ]
+}
