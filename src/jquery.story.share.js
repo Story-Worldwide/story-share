@@ -91,29 +91,7 @@
 
             return !!popup;
         },
-        facebookUrlHandler: function (e) {
-            if(typeof FB === 'undefined' || !FB) {
-            $.ajaxSetup({ cache: true });
-            $.getScript('//connect.facebook.net/en_UK/all.js', function() {
-                FB.init({
-                    appId: '339511862916474'
-                });
-                callback();
-            });
-        } else {
-            callback();
-        }
-            FB.ui({
-                method: 'feed',
-                name: "",
-                link: 'http://shell.jsfiddle.net',
-                picture: 'placehold.it/350x150',
-                caption: 'this is caption',
-                description: 'this is description'
-            });
-
-
-        },
+        
 
         shareHandler: function () {
                 this.linkHandler();
