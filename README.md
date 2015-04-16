@@ -2,7 +2,7 @@ Story Share jQuery Plugin
 ==================================================
 
 
-`Version 0.0.2`
+`Version 0.0.3`
 
 This jQuery plugin allows you to share pages on `twitter`, `facebook`, `google plus`, `linkedin` and `pinterest` custom share text for Facebook is not yet supported.
 
@@ -159,6 +159,11 @@ Example:
 ```
 <a href="#" class="share" data-type="pinterest" data-url="http://foobar.com" data-description="My Shiny Blog" data-media="http://example.com/image.jpg">Click to Share on Pinterest</a>
 ```
+
+Release Notes
+
+* 0.0.3
+Updated `facebook-complex` to use v2.3 of the API
 
 
 
