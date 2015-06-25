@@ -2,9 +2,9 @@ Story Share jQuery Plugin
 ==================================================
 
 
-`Version 0.0.3`
+`Version 0.1.0`
 
-This jQuery plugin allows you to share pages on `twitter`, `facebook`, `google plus`, `linkedin` and `pinterest` custom share text for Facebook is not yet supported.
+This jQuery plugin allows you to share pages on `twitter`, `facebook`, `google plus`, `linkedin` and `pinterest.` This plugin is fully customizable and can be extended to accept other sharing services.  
 
 Documentation
 --------------------------------------
@@ -12,6 +12,7 @@ Documentation
 Include `jquery.story.share.min.js` in your project as you would any jquery plugin.
 
 To apply a this plugin, simply run the plugin on a standard html anchor element.
+
 
 
 How to Use
@@ -28,10 +29,43 @@ instantiate the storyShare plugin on your anchor html elements. Then create the 
 <a href="#" class="share" data-type="twitter" data-url="http://urltoshare.com" data-text="text to share" data-hashtags="comma,delimited,hashtags">
 ```
 
+as of 0.1.0 there has been added a way to share the current URL dynamically by setting the data-url for any service, for faecbook complex it is data-link, to {{current}}, so the above example would be:
+
+```
+<a href="#" class="share" data-type="twitter" data-url="{{current}}" data-text="text to share" data-hashtags="comma,delimited,hashtags">
+```
+
 
 Options
 ---
-This plugin is fully customizable and can be extended to accept other sharing services. You can pass in your Facebook application ID if you wish to use the experimental custom share feature for Facebook (which aims to allow customized Facebook shares):
+The plugin exposes a host of top level options that are globally bound, not bound to a single service.
+
+####fbAppId 
+_required if you want to use `facebook_complex` sharing_
+
+
+You can pass in your Facebook application ID if you wish to use the `facebook_complex`, which aims to allow customized Facebook shares. This application must be bound to the URL that you are ultimately using this share plugin.
+
+####windowHeight
+_default: 500_
+
+The window height of the popup, do not touch unless you have a good reason to
+
+####windowWidth
+_default: 300_
+
+The window width of the popup, do not touch unless you have a good reason to
+
+####relativeMediaUrls
+_default: true_
+
+Set this to false if you want to set the media urls absolutely, as of 0.1.0 this is `data-media` for pinterest and `data-picture` for facebook complex
+
+####mediaBaseUrl
+_default: current URL with any hashes removed_
+
+This is only used if `relativeMediaUrls` is set to true. The default should suffice most conditions but if you want to manually override it, set this here
+
 
 ```
 jQuery(document).ready(function(){
@@ -70,7 +104,7 @@ For any of these data elements or for more information refer to [Facebook's docu
 
 * `data-type` => `facebook-complex` *always*  
 * `data-redirect_uri` => You should only change this if you need to. Because the `dialog/feed` endpoint requires a redirect that will send the user to a specific page , we are simply redirecting to the same page with a hashbag added to the end of the URL, which this plugin has a handler to close the window when redirecting.
-* `data-picture` => `http://example.com/image.jpg`
+* `data-picture` => `image.jpg`
 * `data-caption` => `Ready for Isomorphic Javascript?`
 * `data-link` => `http://example.com/isomorphic-javascript`
 * `data-source` => From Facebook's documentation The URL of a media file (either SWF or MP3) attached to this post. If SWF, you must also specify picture to provide a thumbnail for the video.
@@ -96,7 +130,7 @@ In the body:
 
 
 ```
- <a class="share" data-name="Isomorphic Javascript" data-link="http://example.com/isomorphic-javascript" data-description="The latest article from my blog that discusses isomorphic javascript." data-type="facebook-complex" data-picture="http://example.com/image.jpg" data-caption="Ready for Isomorphic JavaScript?" href="#">Share on Facebook</a>
+ <a class="share" data-name="Isomorphic Javascript" data-link="http://example.com/isomorphic-javascript" data-description="The latest article from my blog that discusses isomorphic javascript." data-type="facebook-complex" data-picture="image.jpg" data-caption="Ready for Isomorphic JavaScript?" href="#">Share on Facebook</a>
 ```
 
 
@@ -150,20 +184,24 @@ Sharing with Pinterest is more straight forward and here are the data attributes
 
 * `data-type` => `pinterest` *always*  
 * `data-url` => `http://example.com`  
-* `data-media` => `http://example.com/image.jpg`
+* `data-media` => `image.jpg`
 * `data-description` => `Isomorphic JavaScript, is this our future?` (optional)
 
 
 Example:
 
 ```
-<a href="#" class="share" data-type="pinterest" data-url="http://foobar.com" data-description="My Shiny Blog" data-media="http://example.com/image.jpg">Click to Share on Pinterest</a>
+<a href="#" class="share" data-type="pinterest" data-url="http://foobar.com" data-description="My Shiny Blog" data-media="image.jpg">Click to Share on Pinterest</a>
 ```
 
 Release Notes
 
 * 0.0.3
 Updated `facebook-complex` to use v2.3 of the API
+
+* 0.1.0
+Updated to allow media urls to be prefixed with a base URL.
+Updated to allow {{current}} to act as a placeholder for the current URL
 
 
 

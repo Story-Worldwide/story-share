@@ -16,6 +16,38 @@
 
             windowWidth: 500,
             windowHeight: 300,
+            relativeMediaUrls: true,
+            mediaBaseUrl: window.location.href.replace(window.location.hash, '').replace('#', ''),
+            currentUrlPlaceholder: '{{current}}',
+            mediaAttributes: {
+                pinterest: [
+                    'media'
+                ],
+                facebook_complex: [
+                    'picture'
+                ]
+
+            },
+            shareUrlAttributes: {
+                facebook_complex: [
+                    'link'
+                ],
+                facebook_simple: [
+                    'url'
+                ],
+                twitter: [
+                    'url'
+                ],
+                google_plus: [
+                    'url'
+                ],
+                linkedin: [
+                    'url'
+                ],
+                pinterest: [
+                    'url'
+                ]
+            },
             socialProviders: {
                 facebook_simple: {
                     urlBase: 'https://www.facebook.com/sharer/sharer.php?u={url}'
@@ -42,7 +74,8 @@
                     urlBase: 'https://pinterest.com/pin/create/button/?url={url}&media={media}&description={description}'
                 }
 
-            }
+            },
+            debug: false
         };
 
 
@@ -69,6 +102,7 @@
         }
 
         this.shareHandler = this.shareHandler.bind(this);
+        //this.generateSocialUrl = this.generateSocialUrl.bind(this);
 
         this._defaults = defaults;
         this._name = pluginName;
@@ -143,7 +177,6 @@
 
         generateSocialUrl: function() {
 
-
             var $el = $(this.element),
                 type = $el.attr('data-type').replace('-', '_'),
                 parentObject = this,
@@ -172,8 +205,25 @@
                     override = overrides[element];
                 }
 
-                var attributeName = 'data-' + element.replace('{', '').replace('}', ''),
+                var processedElement = element.replace('{', '').replace('}', ''),
+                    attributeName = 'data-' + processedElement,
                     dataAttribute = override || $el.attr(attributeName);
+
+                // handle relative URLs
+                if ( parentObject.options.relativeMediaUrls && dataAttribute && type in parentObject.options.mediaAttributes ) {
+
+                    if (parentObject.options.mediaAttributes[type].indexOf(processedElement) > -1 ) {
+                        dataAttribute = parentObject.options.mediaBaseUrl + dataAttribute;
+                    }
+                }
+
+                // handler for sharing current url
+
+                if ( dataAttribute === parentObject.options.currentUrlPlaceholder && parentObject.options.shareUrlAttributes[type].indexOf(processedElement) > -1 ) {
+
+                    dataAttribute = window.location.href;
+
+                }
 
 
                 dataAttribute = dataAttribute !== undefined ? dataAttribute : null;
@@ -181,6 +231,9 @@
                 if (null === dataAttribute) {
                     socialUrl = parentObject.removeURLParameter(socialUrl, attributeName.replace('data-', ''));
                 }
+
+
+
                 socialUrl = socialUrl.replace('{' + element + '}', encodeURIComponent(dataAttribute));
             });
             this.socialUrl = socialUrl;
@@ -190,12 +243,16 @@
 
 
     $.fn[pluginName] = function(options) {
-        return this.each(function() {
-            if (!$.data(this, "plugin_" + pluginName)) {
-                $.data(this, "plugin_" + pluginName,
-                    new Plugin(this, options));
-            }
-        });
+        if (options && options.debug) {
+            return new Plugin(this, options);
+        } else {
+            return this.each(function() {
+                if (!$.data(this, "plugin_" + pluginName)) {
+                    $.data(this, "plugin_" + pluginName,
+                        new Plugin(this, options));
+                }
+            });
+        }
     };
 
 })(jQuery, window, document);
