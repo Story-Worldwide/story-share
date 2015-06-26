@@ -11,13 +11,15 @@
 ;(function($, window, document, undefined) {
 
 
-    var pluginName = "storyShare",
+    var $el,
+        type,
+        pluginName = "storyShare",
         defaults = {
 
             windowWidth: 500,
             windowHeight: 300,
             relativeMediaUrls: true,
-            mediaBaseUrl: window.location.href.replace(window.location.hash, '').replace('#', ''),
+            mediaBaseUrl: window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1),
             currentUrlPlaceholder: '{{current}}',
             mediaAttributes: {
                 pinterest: [
@@ -28,6 +30,34 @@
                 ]
 
             },
+            requiredLocalAttributes: {
+                facebook_complex: [
+                    'link'
+                ],
+                facebook_simple: [
+                    'url'
+                ],
+                twitter: [
+                    'url'
+                ],
+                google_plus: [
+                    'url'
+                ],
+                linkedin: [
+                    'url',
+                    'title'
+                ],
+                pinterest: [
+                    'url',
+                    'media'
+                ]
+            },
+            requiredGlobalAttributes: {
+                facebook_complex: [
+                    'fbAppId'
+                ]
+            },
+
             shareUrlAttributes: {
                 facebook_complex: [
                     'link'
@@ -102,10 +132,8 @@
         }
 
         this.shareHandler = this.shareHandler.bind(this);
-        //this.generateSocialUrl = this.generateSocialUrl.bind(this);
 
         this._defaults = defaults;
-        this._name = pluginName;
 
         this.init();
     }
@@ -175,20 +203,42 @@
             }
         },
 
-        generateSocialUrl: function() {
+        validateAttributes: function () {
 
-            var $el = $(this.element),
-                type = $el.attr('data-type').replace('-', '_'),
-                parentObject = this,
-                socialProvider = type in this.options.socialProviders ? this.options.socialProviders[type] : null;
+            if (defaults.requiredLocalAttributes[type] && Array.isArray(defaults.requiredLocalAttributes[type])) {
 
-            if (null === socialProvider) {
+                for (var i = 0; i < defaults.requiredLocalAttributes[type].length; i++) {
+                    if (!$el.attr('data-' + defaults.requiredLocalAttributes[type][i])) {
+                        this.socialUrl = null;
+                        throw '[Story-Share] Missing ' + defaults.requiredLocalAttributes[type][i] + ' for ' + type;
+                    }
 
-                console.log(type + ' does not exist as a social provider.');
-                this.socialUrl = null;
-                return;
+                }
+            }
+
+            if (defaults.requiredGlobalAttributes[type] && Array.isArray(defaults.requiredGlobalAttributes[type])) {
+
+                for (i = 0; i < defaults.requiredGlobalAttributes[type].length; i++) {
+                    if (!this.options[defaults.requiredGlobalAttributes[type][i]]) {
+                        this.socialUrl = null;
+                        throw '[Story-Share] Missing ' + defaults.requiredGlobalAttributes[type][i] + ' for ' + type;
+                    }
+                }
 
             }
+
+        },
+
+        generateSocialUrl: function() {
+
+            $el = $(this.element);
+            type = $el.attr('data-type').replace('-', '_');
+            var parentObject = this,
+                socialProvider = type in this.options.socialProviders ? this.options.socialProviders[type] : null;
+
+            // url is required
+
+            this.validateAttributes();
 
             var socialUrl = socialProvider.urlBase,
                 pattern = /{([^}]*)}/g,
