@@ -232,11 +232,17 @@
         generateSocialUrl: function() {
 
             $el = $(this.element);
-            type = $el.attr('data-type').replace('-', '_');
+            if ($el.attr('data-type')) {
+                type = $el.attr('data-type').replace('-', '_');
+            } else {
+                throw '[Story-Share] The data-type attribute is required';
+            }
             var parentObject = this,
                 socialProvider = type in this.options.socialProviders ? this.options.socialProviders[type] : null;
 
-            // url is required
+            if (null === socialProvider) {
+                throw '[Story-Share] Type ' + type + ' is not supported';
+            }
 
             this.validateAttributes();
 
