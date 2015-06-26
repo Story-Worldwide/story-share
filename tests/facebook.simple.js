@@ -78,7 +78,7 @@ QUnit.test(
 
     plugin = returnPluginObject(attributes);
 
-    expected = 'The `data-url` attribute is required for Facebook (simple) shares';
+    expected = '[Story-Share] Missing url for ' + attributes['data-type'].replace('-', '_');
 
     assert.throws(
         function() {
@@ -86,8 +86,7 @@ QUnit.test(
         },
         function(err) {
             // Must evaluate to true
-            // Update once there's an actual error to evaluate
-            return true;
+            return err === expected;
         },
         expected
     );

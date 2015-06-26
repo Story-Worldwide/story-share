@@ -144,7 +144,7 @@ QUnit.test(
         'data-hashtags': 'jQuery, Story, awesomeSauce'
     };
 
-    expected = 'The `data-url` parameter is required for Twitter shares';
+    expected = '[Story-Share] Missing url for twitter';
 
     plugin = returnPluginObject(attributes);
 
@@ -154,8 +154,7 @@ QUnit.test(
         },
         function(err) {
             // Must evaluate to true
-            // Update once there's an actual error to evaluate
-            return true;
+            return err === expected;
         },
         expected
     );

@@ -22,7 +22,7 @@ QUnit.test(
     };
 
     // This should be a ReferenceError thrown by storyShare
-    expected = 'TypeError: Cannot read property \'replace\' of undefined'
+    expected = '[Story-Share] The data-type attribute is required'
 
     plugin = returnPluginObject(attributes);
 
@@ -32,8 +32,7 @@ QUnit.test(
         },
         function(err) {
             // Must evaluate to true
-            // Update once there's an actual error to evaluate
-            return true;
+            return err === expected;
         },
         expected
     );
@@ -57,7 +56,7 @@ QUnit.test(
     };
 
     // This should be a TypeError thrown by storyShare
-    expected = '\'' + attributes['data-type'].replace('-', '_') + '\' does not exist as a social provider.';
+    expected = '[Story-Share] Type ' + attributes['data-type'].replace('-', '_') + ' is not supported';
 
     plugin = returnPluginObject(attributes);
 
@@ -67,8 +66,7 @@ QUnit.test(
         },
         function(err) {
             // Must evaluate to true
-            // Update once there's an actual error to evaluate
-            return true;
+            return err === expected;
         },
         expected
     );

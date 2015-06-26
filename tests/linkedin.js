@@ -152,7 +152,7 @@ QUnit.test(
         'data-summary': 'Shared to LinkedIn via storyShare'
     };
 
-    expected = 'The `data-url` parameter is required for LinkedIn shares';
+    expected = '[Story-Share] Missing url for linkedin';
 
     plugin = returnPluginObject(attributes);
 
@@ -162,8 +162,7 @@ QUnit.test(
         },
         function(err) {
             // Must evaluate to true
-            // Update once there's an actual error to evaluate
-            return true;
+            return err === expected;
         },
         expected
     );
@@ -188,7 +187,7 @@ QUnit.test(
         'data-summary': 'Shared to LinkedIn via storyShare'
     };
 
-    expected = 'The `data-title` parameter is required for LinkedIn shares';
+    expected = '[Story-Share] Missing title for linkedin';
 
     plugin = returnPluginObject(attributes);
 
@@ -198,8 +197,7 @@ QUnit.test(
         },
         function(err) {
             // Must evaluate to true
-            // Update once there's an actual error to evaluate
-            return true;
+            return err === expected;
         },
         expected
     );

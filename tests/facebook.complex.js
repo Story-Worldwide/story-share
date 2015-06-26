@@ -221,7 +221,7 @@ QUnit.test(
         'data-caption': 'This is just a test'
     };
 
-    expected = '`fbAppId` is required with `data-type=facebook-complex`';
+    expected = '[Story-Share] Missing fbAppId for ' + attributes['data-type'].replace('-', '_');
 
     plugin = returnPluginObject(attributes);
 
@@ -231,8 +231,7 @@ QUnit.test(
         },
         function(err) {
             // Must evaluate to true
-            // Update once there's an actual error to evaluate
-            return true;
+            return err === expected;
         },
         expected
     );
@@ -259,7 +258,7 @@ QUnit.test(
         'data-caption': 'This is just a test'
     };
 
-    expected = 'A `data-link` attribute is required with `data-type=facebook-complex`';
+    expected = '[Story-Share] Missing link for ' + attributes['data-type'].replace('-', '_');
 
     plugin = returnPluginObject(attributes);
 
@@ -269,8 +268,7 @@ QUnit.test(
         },
         function(err) {
             // Must evaluate to true
-            // Update once there's an actual error to evaluate
-            return true;
+            return err === expected;
         },
         expected
     );

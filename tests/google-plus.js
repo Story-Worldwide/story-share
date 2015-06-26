@@ -74,7 +74,7 @@ QUnit.test(
         'data-type': 'google-plus'
     };
 
-    expected = 'The `data-url` parameter is required for Google Plus shares';
+    expected = '[Story-Share] Missing url for ' + attributes['data-type'].replace('-', '_');
 
     plugin = returnPluginObject(attributes);
 
@@ -84,8 +84,7 @@ QUnit.test(
         },
         function(err) {
               // Must evaluate to true
-              // Update once there's an actual error to evaluate
-              return true;
+              return err === expected;
         },
         expected
     );
