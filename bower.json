@@ -1,6 +1,6 @@
 {
   "name": "jquery.story.share",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "main": [
     "src/jquery.story.share.js"
   ],
@@ -10,5 +10,8 @@
   "ignore": [
     "*.json",
     "*.md"
-  ]
+  ],
+  "devDependencies": {
+    "qunit": "~1.18.0"
+  }
 }
