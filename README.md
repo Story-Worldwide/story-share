@@ -36,7 +36,7 @@ Options
 The plugin exposes a host of top level options that are globally bound, not bound to a single service.
 
 ####fbAppId
-_required if you want to use `facebook_complex` sharing_
+_required if you want to use `facebook-complex` sharing_
 
 You must pass in your Facebook Application ID if you wish to use `facebook-complex`, which aims to allow customized Facebook shares. This application must be bound to the URL from which you are ultimately using this share plugin.
 
