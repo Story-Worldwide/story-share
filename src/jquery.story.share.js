@@ -160,7 +160,9 @@
                 ",location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1");
             if (popup) {
                 popup.focus();
-                if ($(this.element).preventDefault) $(this.element).preventDefault();
+                if ($(this.element).preventDefault) {
+                    $(this.element).preventDefault();
+                }
                 $(this.element).returnValue = false;
             }
 
@@ -218,10 +220,10 @@
 
             if (defaults.requiredGlobalAttributes[type] && Array.isArray(defaults.requiredGlobalAttributes[type])) {
 
-                for (i = 0; i < defaults.requiredGlobalAttributes[type].length; i++) {
-                    if (!this.options[defaults.requiredGlobalAttributes[type][i]]) {
+                for (var x = 0; x < defaults.requiredGlobalAttributes[type].length; x++) {
+                    if (!this.options[defaults.requiredGlobalAttributes[type][x]]) {
                         this.socialUrl = null;
-                        throw '[Story-Share] Missing ' + defaults.requiredGlobalAttributes[type][i] + ' for ' + type;
+                        throw '[Story-Share] Missing ' + defaults.requiredGlobalAttributes[type][x] + ' for ' + type;
                     }
                 }
 
