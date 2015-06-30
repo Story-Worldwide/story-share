@@ -11,13 +11,15 @@
 ;(function($, window, document, undefined) {
 
 
-    var pluginName = "storyShare",
+    var $el,
+        type,
+        pluginName = "storyShare",
         defaults = {
 
             windowWidth: 500,
             windowHeight: 300,
             relativeMediaUrls: true,
-            mediaBaseUrl: window.location.href.replace(window.location.hash, '').replace('#', ''),
+            mediaBaseUrl: window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1),
             currentUrlPlaceholder: '{{current}}',
             mediaAttributes: {
                 pinterest: [
@@ -28,6 +30,34 @@
                 ]
 
             },
+            requiredLocalAttributes: {
+                facebook_complex: [
+                    'link'
+                ],
+                facebook_simple: [
+                    'url'
+                ],
+                twitter: [
+                    'url'
+                ],
+                google_plus: [
+                    'url'
+                ],
+                linkedin: [
+                    'url',
+                    'title'
+                ],
+                pinterest: [
+                    'url',
+                    'media'
+                ]
+            },
+            requiredGlobalAttributes: {
+                facebook_complex: [
+                    'fbAppId'
+                ]
+            },
+
             shareUrlAttributes: {
                 facebook_complex: [
                     'link'
@@ -74,7 +104,8 @@
                     urlBase: 'https://pinterest.com/pin/create/button/?url={url}&media={media}&description={description}'
                 }
 
-            }
+            },
+            debug: false
         };
 
 
@@ -101,10 +132,8 @@
         }
 
         this.shareHandler = this.shareHandler.bind(this);
-        //this.generateSocialUrl = this.generateSocialUrl.bind(this);
 
         this._defaults = defaults;
-        this._name = pluginName;
 
         this.init();
     }
@@ -131,7 +160,9 @@
                 ",location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1");
             if (popup) {
                 popup.focus();
-                if ($(this.element).preventDefault) $(this.element).preventDefault();
+                if ($(this.element).preventDefault) {
+                    $(this.element).preventDefault();
+                }
                 $(this.element).returnValue = false;
             }
 
@@ -174,20 +205,48 @@
             }
         },
 
+        validateAttributes: function () {
+
+            if (defaults.requiredLocalAttributes[type] && Array.isArray(defaults.requiredLocalAttributes[type])) {
+
+                for (var i = 0; i < defaults.requiredLocalAttributes[type].length; i++) {
+                    if (!$el.attr('data-' + defaults.requiredLocalAttributes[type][i])) {
+                        this.socialUrl = null;
+                        throw '[Story-Share] Missing ' + defaults.requiredLocalAttributes[type][i] + ' for ' + type;
+                    }
+
+                }
+            }
+
+            if (defaults.requiredGlobalAttributes[type] && Array.isArray(defaults.requiredGlobalAttributes[type])) {
+
+                for (var x = 0; x < defaults.requiredGlobalAttributes[type].length; x++) {
+                    if (!this.options[defaults.requiredGlobalAttributes[type][x]]) {
+                        this.socialUrl = null;
+                        throw '[Story-Share] Missing ' + defaults.requiredGlobalAttributes[type][x] + ' for ' + type;
+                    }
+                }
+
+            }
+
+        },
+
         generateSocialUrl: function() {
 
-            var $el = $(this.element),
-                type = $el.attr('data-type').replace('-', '_'),
-                parentObject = this,
+            $el = $(this.element);
+            if ($el.attr('data-type')) {
+                type = $el.attr('data-type').replace('-', '_');
+            } else {
+                throw '[Story-Share] The data-type attribute is required';
+            }
+            var parentObject = this,
                 socialProvider = type in this.options.socialProviders ? this.options.socialProviders[type] : null;
 
             if (null === socialProvider) {
-
-                console.log(type + ' does not exist as a social provider.');
-                this.socialUrl = null;
-                return;
-
+                throw '[Story-Share] Type ' + type + ' is not supported';
             }
+
+            this.validateAttributes();
 
             var socialUrl = socialProvider.urlBase,
                 pattern = /{([^}]*)}/g,
@@ -242,12 +301,16 @@
 
 
     $.fn[pluginName] = function(options) {
-        return this.each(function() {
-            if (!$.data(this, "plugin_" + pluginName)) {
-                $.data(this, "plugin_" + pluginName,
-                    new Plugin(this, options));
-            }
-        });
+        if (options && options.debug) {
+            return new Plugin(this, options);
+        } else {
+            return this.each(function() {
+                if (!$.data(this, "plugin_" + pluginName)) {
+                    $.data(this, "plugin_" + pluginName,
+                        new Plugin(this, options));
+                }
+            });
+        }
     };
 
 })(jQuery, window, document);
