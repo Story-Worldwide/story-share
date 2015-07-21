@@ -17,6 +17,14 @@ module.exports = function(grunt) {
             }
         },
 
+        qunit: {
+            all: {
+                options: {
+                    urls: ['http://localhost:8001/tests/']
+                }
+            }
+        },
+
         uglify: {
             options: {
                 report: 'min',
@@ -46,12 +54,20 @@ module.exports = function(grunt) {
 
         connect: {
             options: {
-                directory: 'tests',
-                keepalive: true
+
             },
-            tests: {
+            test: {
                 options: {
-                    open: 'http://localhost:8000/tests/'
+                  port: 8001,
+                  base: '.',
+                  hostname: 'localhost'
+                }
+            },
+            open: {
+                options: {
+                    open: 'http://localhost:8000/tests/',
+                    directory: 'tests',
+                    keepalive: true
                 }
             }
         },
@@ -65,8 +81,9 @@ module.exports = function(grunt) {
         'default',
         [
             'jshint',
-            'uglify',
-            'connect',
+            'connect:test',
+            'qunit',
+            'uglify'
         ]
     );
 
