@@ -137,11 +137,12 @@ Sharing with twitter is more straight forward; here are the data attributes:
 * `data-url` => `http://example.com`
 * `data-text` => `Isomorphic JavaScript, is this our future?`
 * `data-hashtags` => `js,isomorphism` this is optional and it would be comma delimited
+* `data-via` => `twitterdev` A Twitter username to associate with the Tweet, such as your site’s Twitter account. The provided username will be appended to the end of the Tweet with the text "via @username".
 
 Example:
 
 ```html
-<a href="#" class="share" data-type="twitter" data-url="http://example.com" data-text="Isomorphic JavaScript, is this our future?" data-hashtags="js,isomorphism">Click to Share on Twitter</a>
+<a href="#" class="share" data-type="twitter" data-url="http://example.com" data-text="Isomorphic JavaScript, is this our future?" data-hashtags="js,isomorphism" data-via="twitter-dev">Click to Share on Twitter</a>
 ```
 
 Google Plus
@@ -200,6 +201,7 @@ Updated to allow {{current}} in `data-url` (or `data-link` for Facebook Complex)
 
 * 0.1.1
 Updated relativeMediaUrls to default to false
+Added via setting to Twitter share
 
 
 
