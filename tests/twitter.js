@@ -32,6 +32,7 @@ QUnit.test(
     expected += '?url=' + encodeURIComponent(attributes['data-url']);
     expected += '&text=' + encodeURIComponent(attributes['data-text']);
     expected += '&hashtags=' + encodeURIComponent(attributes['data-hashtags']);
+    expected += '&via=' + encodeURIComponent(attributes['data-via']);
 
     plugin = returnPluginObject(attributes);
     plugin.generateSocialUrl();
@@ -63,6 +64,7 @@ QUnit.test(
     expected += '?url=' + encodeURIComponent(url);
     expected += '&text=' + encodeURIComponent(attributes['data-text']);
     expected += '&hashtags=' + encodeURIComponent(attributes['data-hashtags']);
+    expected += '&via=' + encodeURIComponent(attributes['data-via']);
 
     plugin = returnPluginObject(attributes);
     plugin.generateSocialUrl();
