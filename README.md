@@ -205,6 +205,7 @@ Added via setting to Twitter share
 
 * 0.1.2
 Integrated QUnit tests into grunt task
+Remove title from `facebook-complex` share type  since it is not an actual field in the API
 
 
 
