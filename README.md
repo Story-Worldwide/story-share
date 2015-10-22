@@ -203,5 +203,8 @@ Updated to allow {{current}} in `data-url` (or `data-link` for Facebook Complex)
 Updated relativeMediaUrls to default to false
 Added via setting to Twitter share
 
+* 0.1.2
+Integrated QUnit tests into grunt task
+
 
 
