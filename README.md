@@ -2,7 +2,7 @@ Story Share jQuery Plugin
 ==================================================
 
 
-`Version 0.1.0`
+`Version 0.1.1`
 
 This jQuery plugin allows you to share pages on `twitter`, `facebook`, `google plus`, `linkedin` and `pinterest.` This plugin is fully customizable and can be extended to accept other sharing services.
 
@@ -51,7 +51,7 @@ _default: 300_
 The window width of the popup; do not touch unless you have a good reason to.
 
 ####relativeMediaUrls
-_default: true_
+_default: false_
 
 Set this to false if you want to set the media URLs absolutely. As of 0.1.0, this is `data-media` for pinterest and `data-picture` for facebook complex.
 
@@ -196,7 +196,10 @@ Updated `facebook-complex` to use v2.3 of the API
 
 * 0.1.0
 Updated to allow media urls to be prefixed with a base URL.
-Updated to allow {{current}} to act as a placeholder for the current URL
+Updated to allow {{current}} in `data-url` (or `data-link` for Facebook Complex) to act as a placeholder for the current URL
+
+* 0.1.1
+Updated relativeMediaUrls to default to false
 
 
 
