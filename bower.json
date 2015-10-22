@@ -1,6 +1,6 @@
 {
   "name": "jquery.story.share",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": [
     "src/jquery.story.share.js"
   ],

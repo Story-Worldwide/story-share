@@ -29,7 +29,7 @@ QUnit.test(
 
     expected = 'https://pinterest.com/pin/create/button/';
     expected += '?url=' + encodeURIComponent(attributes['data-url']);
-    expected += '&media=' + encodeURIComponent(url + attributes['data-media']);
+    expected += '&media=' + encodeURIComponent(attributes['data-media']);
     expected += '&description=' + encodeURIComponent(attributes['data-description']);
 
     plugin = returnPluginObject(attributes);
@@ -59,7 +59,7 @@ QUnit.test(
 
     expected = 'https://pinterest.com/pin/create/button/';
     expected += '?url=' + encodeURIComponent(url);
-    expected += '&media=' + encodeURIComponent(url + attributes['data-media']);
+    expected += '&media=' + encodeURIComponent(attributes['data-media']);
     expected += '&description=' + encodeURIComponent(attributes['data-description']);
 
     plugin = returnPluginObject(attributes);
@@ -88,7 +88,7 @@ QUnit.test(
 
     expected = 'https://pinterest.com/pin/create/button/';
     expected += '?url=' + encodeURIComponent(attributes['data-url']);
-    expected += '&media=' + encodeURIComponent(url + attributes['data-media']);
+    expected += '&media=' + encodeURIComponent(attributes['data-media']);
 
     plugin = returnPluginObject(attributes);
     plugin.generateSocialUrl();
@@ -98,14 +98,14 @@ QUnit.test(
 });
 
 /**
- * Test Case: Given `relativeMediaUrls = false`, the share URL will match expected
+ * Test Case: Given `relativeMediaUrls = true`, the share URL will match expected
  */
 QUnit.test(
     'Given `relativeMediaUrls = false`, the share URL will match expected',
     function(assert) {
 
     var anchor, plugin, expected,
-        shareOptions = {relativeMediaUrls: false}
+        shareOptions = {relativeMediaUrls: true}
         attributes = {};
 
     attributes = {
@@ -121,7 +121,7 @@ QUnit.test(
 
     expected = 'https://pinterest.com/pin/create/button/';
     expected += '?url=' + encodeURIComponent(attributes['data-url']);
-    expected += '&media=' + encodeURIComponent(attributes['data-media']);
+    expected += '&media=' + encodeURIComponent(url + attributes['data-media']);
     expected += '&description=' + encodeURIComponent(attributes['data-description']);
 
     assert.equal(plugin.socialUrl, expected, expected);
@@ -136,7 +136,7 @@ QUnit.test(
     function(assert) {
 
     var anchor, plugin, expected,
-        shareOptions = {mediaBaseUrl: '../'}
+        shareOptions = {mediaBaseUrl: '../', relativeMediaUrls: true}
         attributes = {};
 
     attributes = {

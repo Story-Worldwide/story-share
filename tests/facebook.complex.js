@@ -39,7 +39,7 @@ QUnit.test(
     expected += '?app_id=' + plugin.options.fbAppId;
     expected += '&redirect_uri=' + encodeURIComponent(url) + '%23story_close_window';
     expected += '&link=' + encodeURIComponent(attributes['data-link']);
-    expected += '&picture=' + encodeURIComponent(url + attributes['data-picture']);
+    expected += '&picture=' + encodeURIComponent(attributes['data-picture']);
     expected += '&caption=' + encodeURIComponent(attributes['data-caption']);
     expected += '&description=' + encodeURIComponent(attributes['data-description']);
     expected += '&name=' + encodeURIComponent(attributes['data-name']);
@@ -77,7 +77,7 @@ QUnit.test(
     expected += '?app_id=' + plugin.options.fbAppId;
     expected += '&redirect_uri=' + encodeURIComponent(url) + '%23story_close_window';
     expected += '&link=' + encodeURIComponent(url);
-    expected += '&picture=' + encodeURIComponent(url + attributes['data-picture']);
+    expected += '&picture=' + encodeURIComponent(attributes['data-picture']);
     expected += '&caption=' + encodeURIComponent(attributes['data-caption']);
     expected += '&description=' + encodeURIComponent(attributes['data-description']);
     expected += '&name=' + encodeURIComponent(attributes['data-name']);
@@ -91,11 +91,11 @@ QUnit.test(
 * Test Case: Given `relativeMediaUrls = false`, the share URL will match expected
 */
 QUnit.test(
-    'Given `relativeMediaUrls = false`, the share URL will match expected',
+    'Given `relativeMediaUrls = true`, the share URL will match expected',
     function(assert) {
 
     var anchor, plugin, expected,
-        shareOptions = {fbAppId: '815164228572148', relativeMediaUrls: false}
+        shareOptions = {fbAppId: '815164228572148', relativeMediaUrls: true}
         attributes = {};
 
     attributes = {
@@ -115,7 +115,7 @@ QUnit.test(
     expected += '?app_id=' + plugin.options.fbAppId;
     expected += '&redirect_uri=' + encodeURIComponent(url) + '%23story_close_window';
     expected += '&link=' + encodeURIComponent(attributes['data-link']);
-    expected += '&picture=' + encodeURIComponent(attributes['data-picture']);
+    expected += '&picture=' + encodeURIComponent(url + attributes['data-picture']);
     expected += '&caption=' + encodeURIComponent(attributes['data-caption']);
     expected += '&description=' + encodeURIComponent(attributes['data-description']);
     expected += '&name=' + encodeURIComponent(attributes['data-name']);
@@ -133,7 +133,7 @@ QUnit.test(
     function(assert) {
 
     var anchor, plugin, expected,
-        shareOptions = {fbAppId: '815164228572148', mediaBaseUrl: '../'}
+        shareOptions = {fbAppId: '815164228572148', relativeMediaUrls: true, mediaBaseUrl: '../'}
         attributes = {};
 
     attributes = {

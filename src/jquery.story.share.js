@@ -4,7 +4,7 @@
  * Sharing plugin for Story Worldwide
  * Original author: @matgargano
  * Licensed under the MIT license
- * Version 0.0.3
+ * Version 0.1.1
  */
 
 
@@ -18,7 +18,7 @@
 
             windowWidth: 500,
             windowHeight: 300,
-            relativeMediaUrls: true,
+            relativeMediaUrls: false,
             mediaBaseUrl: window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1),
             currentUrlPlaceholder: '{{current}}',
             mediaAttributes: {
@@ -90,7 +90,7 @@
                     }
                 },
                 twitter: {
-                    urlBase: 'https://twitter.com/intent/tweet?url={url}&text={text}&hashtags={hashtags}'
+                    urlBase: 'https://twitter.com/intent/tweet?url={url}&text={text}&hashtags={hashtags}&via={via}'
                 },
                 google_plus: {
                     urlBase: 'https://plus.google.com/share?url={url}'
@@ -108,6 +108,11 @@
             debug: false
         };
 
+        $(document).ready(function(){
+            if (window.location.hash.indexOf('#story_close_window') !== -1) {
+                window.close();
+            }
+        });
 
     function Plugin(element, options) {
         this.element = element;
@@ -174,14 +179,9 @@
             this.linkHandler();
         },
 
-        closeWindowIfHashExists: function() {
-            if (window.location.hash.indexOf('#story_close_window') !== -1) {
-                window.close();
-            }
-        },
+
         init: function() {
 
-            this.closeWindowIfHashExists();
             $(this.element).on('click', this.shareHandler);
 
         },
